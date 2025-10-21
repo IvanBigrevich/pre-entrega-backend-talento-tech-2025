@@ -1,102 +1,70 @@
-export async function obtenerProductos () {
-    try{  
-        const response = await fetch("https://fakestoreapi.com/products",{
-            method: "GET"
-        })
+const BASE_URL = "https://fakestoreapi.com/products";
 
-        const data = await response.json()
-        console.log(`Los productos son: `)
-        data.map((producto) => {
-            console.log(producto)
-        })
-        
-    }catch(error){
-        console.log(error)
-    }
+export async function obtenerProductos() {
+  try {
+    const response = await fetch(BASE_URL, { method: "GET" });
+
+    if (!response.ok) throw new Error(`Error ${response.status}`);
+
+    const data = await response.json();
+    console.log("Lista de productos:");
+    console.table(
+      data.map((p) => ({
+        id: p.id,
+        title: p.title,
+        price: p.price,
+        category: p.category,
+      }))
+    );
+  } catch (error) {
+    console.error("Error al obtener productos:", error.message);
+  }
 }
 
 export async function obtenerProducto(id) {
-    try{
-        const response = await fetch(`https://fakestoreapi.com/${id}`,{
-            method: "GET"
-        })
+  try {
+    const response = await fetch(`${BASE_URL}/${id}`, { method: "GET" });
 
-        const data = await response.json()
-        console.log(`La informacion del producto es: `, data)
-    }catch(error){
-        console.log(error)
-    }
+    if (!response.ok) throw new Error(`Producto ${id} no encontrado`);
+
+    const data = await response.json();
+    console.log("Detalle del producto:");
+    console.log(data);
+  } catch (error) {
+    console.error("Error al obtener el producto:", error.message);
+  }
 }
 
 export async function agregarProducto(producto) {
-    try{
-        const response = await fetch("https://fakestoreapi.com/products", {
-            method: "POST",
-            headers: {
-               "Content-Type" : "application/json "
-            },
-            body: JSON.stringify(producto)
-        })
+  try {
+    const response = await fetch(BASE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(producto),
+    });
 
-        const data = await response.json()
-        console.log("Producto agregado de manera exitosa", data)
-    }catch(error){
-        console.log(error)
-    }
+    if (!response.ok) throw new Error(`Error ${response.status}`);
+
+    const data = await response.json();
+    console.log("Producto agregado exitosamente:");
+    console.log(data);
+  } catch (error) {
+    console.error("Error al agregar producto:", error.message);
+  }
 }
 
 export async function eliminarProducto(id) {
-    try{
-        const response = await fetch(`https://fakestoreapi.com/${id}`,{
-            method: "DELETE"
-        })
-        const data = await response.json()
-        console.log("Producto eliminado con exito", data)
-    }catch(error){
-        console.log(error)
-    }
+  try {
+    const response = await fetch(`${BASE_URL}/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) throw new Error(`Error ${response.status}`);
+
+    const data = await response.json();
+    console.log(`Producto con ID ${id} eliminado exitosamente:`);
+    console.log(data);
+  } catch (error) {
+    console.error("Error al eliminar producto:", error.message);
+  }
 }
-
-export async function actualizarProducto(producto) {
-    try{
-        const response = await fetch(`https://fakestoreapi.com/products/${producto.id}`,{
-            method: "PUT",
-            headers: {
-               "Content-Type" : "application/json "
-            },
-            body: JSON.stringify(producto)
-        })
-        const data = await response.json()
-        console.log("Producto eliminado con exito", data)
-    }catch(error){
-        console.log(error)
-    }
-
-}
-
-
-//obtenerProductos()
-//console.log("")
-//obtenerProducto("products/2")
-
-/*
-agregarProducto({
-//"id": 21,
-"title": "Prueba",
-"price": 100,
-//"description": "producto de prueba"
-"category": "prueba",
-//"image": "http://example.com"
-})*/
-
-//eliminarProducto("products/2")
-//obtenerProducto(1)
-/*
-actualizarProducto({
-"id": 1,
-"title": "Prueba",
-"price": 100,
-"description": "producto de prueba",
-"category": "prueba",
-"image": "http://example.com"
-})*/

@@ -1,14 +1,27 @@
 {
   "name": "pre_entrega",
   "version": "1.0.0",
-  "description": "",
+  "description": "Desafío de API FakeStore para curso de programación - gestión de productos desde CLI con Node.js",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "nodejs",
+    "api",
+    "fakestore",
+    "cli"
+  ],
+  "author": "Iván Bigrevich",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IvanBigrevich/pre-entrega-backend-talento-tech-2025.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IvanBigrevich/pre-entrega-backend-talento-tech-2025/issues"
+  },
+  "homepage": "https://github.com/IvanBigrevich/pre-entrega-backend-talento-tech-2025#readme"
 }
